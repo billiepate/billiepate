@@ -1,0 +1,196 @@
+.wall{
+  background: url(http://billiepate.com/img/universe.jpg);
+  background-size: cover;
+}
+
+html, body{
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  background: #000;
+  text-align: center;
+}
+
+body:before{
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.scene{
+  display: inline-block;
+  vertical-align: middle;
+  opacity: 0;
+
+  -moz-perspective: 5px;
+  -webkit-perspective: 5px;
+  perspective: 5px;
+
+  -moz-perspective-origin: 50% 50%;
+  -webkit-perspective-origin: 50% 50%;
+  perspective-origin: 50% 50%;
+
+  
+  -moz-animation: fadeIn 3s 1 linear;
+  -webkit-animation: fadeIn 3s 1 linear;
+  animation: fadeIn 3s 1 linear;
+
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+
+  position: relative;
+}
+
+.wrap{
+  position: absolute;
+  width: 1000px;
+  height: 1000px;
+  left: -500px;
+  top: -500px;
+  opacity: 0;
+
+  -moz-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+
+  -moz-animation: move 12s infinite linear;
+  -webkit-animation: move 12s infinite linear;
+  animation: move 12s infinite linear;
+
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+
+}
+
+.wrap:nth-child(2){
+  -moz-animation: move 12s infinite linear;
+  -webkit-animation: move 12s infinite linear;
+  animation: move 12s infinite linear;
+
+  -moz-animation-delay: 6s;
+  -webkit-animation-delay: 6s;
+  animation-delay: 6s;
+}
+
+.wall {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.wall-right {
+  -moz-transform: rotateY(90deg) translateZ(500px);
+  -webkit-transform: rotateY(90deg) translateZ(500px);
+  transform: rotateY(90deg) translateZ(500px);
+}
+
+.wall-left {
+  -moz-transform: rotateY(-90deg) translateZ(500px);
+  -webkit-transform: rotateY(-90deg) translateZ(500px);
+  transform: rotateY(-90deg) translateZ(500px);
+}
+
+.wall-top {
+  -moz-transform: rotateX(90deg) translateZ(500px);
+  -webkit-transform: rotateX(90deg) translateZ(500px);
+  transform: rotateX(90deg) translateZ(500px);
+}
+
+.wall-bottom {
+  -moz-transform: rotateX(-90deg) translateZ(500px);
+  -webkit-transform: rotateX(-90deg) translateZ(500px);
+  transform: rotateX(-90deg) translateZ(500px);
+}
+
+.wall-back {
+  -moz-transform: rotateX(180deg) translateZ(500px);
+  -webkit-transform: rotateX(180deg) translateZ(500px);
+  transform: rotateX(180deg) translateZ(500px);
+}
+
+@-moz-keyframes move {
+  0%{
+    -moz-transform: translateZ(-500px) rotate(0deg);
+    opacity: 0;
+  }
+  25%{
+    opacity: 1;
+  }
+  75%{
+    opacity: 1;
+  }
+  100%{
+    -moz-transform: translateZ(500px) rotate(0deg);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes move {
+  0%{
+    -webkit-transform: translateZ(-500px) rotate(0deg);
+    opacity: 0;
+  }
+  25%{
+    opacity: 1;
+  }
+  75%{
+    opacity: 1;
+  }
+  100%{
+    -webkit-transform: translateZ(500px) rotate(0deg);
+    opacity: 0;
+  }
+}
+
+@keyframes move {
+  0%{
+    transform: translateZ(-500px) rotate(0deg);
+    opacity: 0;
+  }
+  25%{
+    opacity: 1;
+  }
+  75%{
+    opacity: 1;
+  }
+  100%{
+    transform: translateZ(500px) rotate(0deg);
+    opacity: 0;
+  }
+}
+
+
+@-moz-keyframes fadeIn {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
