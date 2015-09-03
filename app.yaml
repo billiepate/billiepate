@@ -6,20 +6,8 @@ threadsafe: yes
 
 handlers:
   
-- url: .*/css
-  static_dir: css
-  
-- url: .*/js
-  static_dir: js
-  
-- url: .*/images
-  static_dir: images
-
-- url: /astral
-  script: astral.html
-  
-- url: /insta
-  script: insta.html
+- url: .*/third-party
+  static_dir: third-party
   
 - url: /.*
   script: index.html

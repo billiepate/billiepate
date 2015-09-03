@@ -1,37 +1,114 @@
-<!doctype html>
-<html>
-	<head>
-	    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-			<meta http-equiv="content-language" content="en-us" />
-			<meta name="robots" content="all" />
-			<meta name="description" content="Billie Pate is an illuminist. She creates technology driven visual art." />
-			<meta name="keywords" content="billie, pate, billiepate, new media, illuminist, art, artist, digital art, data art, app art, net art, interactive art, public art, lighting, sculptural architecture, projection mapping, 3D, video art" />
-			<meta name="author" content="Billie Pate" />
-			<meta http-equiv="expires" content="0" />
-			<title>////&lt; Billie Pate &gt;\\\\</title>
-	    	<meta charset="utf-8">
-	    	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<!DOCTYPE HTML>
 
-	    	<link rel="shortcut icon" type="image/x-icon" href="images/emojis/alien.ico">
-			
-			<link rel="stylesheet" href="css/hyperspace.css"/>
-	</head>
-	<body>
-		<div class="scene">
-		  <div class="wrap">
-		      <div class="wall wall-right"></div>
-		      <div class="wall wall-left"></div>   
-		      <div class="wall wall-top"></div>
-		      <div class="wall wall-bottom"></div> 
-		      <div class="wall wall-back"></div>    
-		  </div>
-		  <div class="wrap">
-		      <div class="wall wall-right"></div>
-		      <div class="wall wall-left"></div>   
-		      <div class="wall wall-top"></div>
-		      <div class="wall wall-bottom"></div>   
-		      <div class="wall wall-back"></div>    
-		  </div>
-		</div>
-	</body>
+<html>
+	
+  <head>
+  	
+  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="content-language" content="en-us" />
+	<meta http-equiv="expires" content="0" />
+	<meta name="robots" content="all" />
+	<meta name="description" content="Billie Pate is an illuminist. She creates technology driven visual art." />
+	<meta name="keywords" content="billie, pate, billiepate, new media, illuminist, art, artist, digital art, data art, app art, net art, interactive art, public art, lighting, sculptural architecture, projection mapping, 3D, video art" />
+	<meta name="author" content="Billie Pate" />
+	
+	<link rel="shortcut icon" type="image/x-icon" href="alien.ico">
+    
+    <title>Billie Pate</title>
+    
+    <style type="text/css">
+    
+      html {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        background: #000000 url(loading.gif) center center no-repeat;
+        color: #ffffff;
+        font-family: sans-serif;
+        font-size: 13px;
+        line-height: 20px;
+        height: 100%;
+      }
+      
+    </style>
+    
+  </head>
+  
+  <body>
+
+  <div id="container"></div>
+
+  <div id="currentInfo">
+    <span id="year2014" class="year"></span>
+    <span id="year2015" class="year"></span>
+    <span id="year2016" class="year"></span>
+  </div>
+
+  <script type="text/javascript" src="third-party/Detector.js"></script>
+  <script type="text/javascript" src="third-party/three.min.js"></script>
+  <script type="text/javascript" src="third-party/Tween.js"></script>
+  <script type="text/javascript" src="globe.js"></script>
+  <script type="text/javascript">
+
+    if(!Detector.webgl){
+      Detector.addGetWebGLMessage();
+    } else {
+
+      var years = ['2014','2015','2016'];
+      var container = document.getElementById('container');
+      var globe = new DAT.Globe(container);
+
+      console.log(globe);
+      var i, tweens = [];
+      
+      var settime = function(globe, t) {
+        return function() {
+          new TWEEN.Tween(globe).to({time: t/years.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
+          var y = document.getElementById('year'+years[t]);
+          if (y.getAttribute('class') === 'year active') {
+            return;
+          }
+          var yy = document.getElementsByClassName('year');
+          for(i=0; i<yy.length; i++) {
+            yy[i].setAttribute('class','year');
+          }
+          y.setAttribute('class', 'year active');
+        };
+      };
+      
+      for(var i = 0; i<years.length; i++) {
+        var y = document.getElementById('year'+years[i]);
+        y.addEventListener('mouseover', settime(globe,i), false);
+      }
+      
+      var xhr;
+      TWEEN.start();
+      
+      
+      xhr = new XMLHttpRequest();
+      xhr.open('GET', 'artworks.json', true);
+      xhr.onreadystatechange = function(e) {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            var data = JSON.parse(xhr.responseText);
+            window.data = data;
+            for (i=0;i<data.length;i++) {
+              globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
+            }
+            globe.createPoints();
+            settime(globe,0)();
+            globe.animate();
+            document.body.style.backgroundImage = 'none'; // remove loading
+          }
+        }
+      };
+      xhr.send(null);
+    }
+
+  </script>
+
+  </body>
+
 </html>
