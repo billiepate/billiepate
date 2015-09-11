@@ -1,18 +1,17 @@
 <!DOCTYPE HTML>
 
-<html>
+<html lang="en">
 	
   <head>
   	
-  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta http-equiv="content-language" content="en-us" />
-	<meta http-equiv="expires" content="0" />
-	<meta name="robots" content="all" />
-	<meta name="description" content="Billie Pate is an illuminist. She creates technology driven visual art." />
-	<meta name="keywords" content="billie, pate, billiepate, new media, illuminist, art, artist, digital art, data art, app art, net art, interactive art, public art, lighting, sculptural architecture, projection mapping, 3D, video art" />
-	<meta name="author" content="Billie Pate" />
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="robots" content="all">
+	<meta name="description" content="Billie Pate is an illuminist. She creates technology driven visual art.">
+	<meta name="keywords" content="billie, pate, billiepate, new media, illuminist, art, artist, digital art, data art, app art, net art, interactive art, public art, lighting, sculptural architecture, projection mapping, 3D, video art">
+	<meta name="author" content="Billie Pate">
 	
-	<link rel="shortcut icon" type="image/x-icon" href="alien.ico">
+	<link rel="shortcut icon" type="image/x-icon" href="images/alien.ico">
     
     <title>Billie Pate</title>
     
@@ -24,7 +23,7 @@
       body {
         margin: 0;
         padding: 0;
-        background: #000000 url(loading.gif) center center no-repeat;
+        background: #000000 url(images/loading.gif) center center no-repeat;
         color: #ffffff;
         font-family: sans-serif;
         font-size: 13px;
@@ -45,11 +44,11 @@
     <span id="year2015" class="year"></span>
     <span id="year2016" class="year"></span>
   </div>
-
+  
   <script type="text/javascript" src="third-party/Detector.js"></script>
   <script type="text/javascript" src="third-party/three.min.js"></script>
   <script type="text/javascript" src="third-party/Tween.js"></script>
-  <script type="text/javascript" src="globe.js"></script>
+  <script type="text/javascript" src="js/globe.js"></script>
   <script type="text/javascript">
 
     if(!Detector.webgl){
@@ -88,7 +87,7 @@
       
       
       xhr = new XMLHttpRequest();
-      xhr.open('GET', 'artworks.json', true);
+      xhr.open('GET', 'data/artworks.json', true);
       xhr.onreadystatechange = function(e) {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
