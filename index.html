@@ -1,113 +1,133 @@
 <!DOCTYPE HTML>
 
 <html lang="en">
-	
-  <head>
-  	
-  	<meta charset="utf-8">
-  	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<meta name="robots" content="all">
-	<meta name="description" content="Billie Pate is an illuminist. She creates technology driven visual art.">
-	<meta name="keywords" content="billie, pate, billiepate, new media, illuminist, art, artist, digital art, data art, app art, net art, interactive art, public art, lighting, sculptural architecture, projection mapping, 3D, video art">
-	<meta name="author" content="Billie Pate">
-	
-	<link rel="shortcut icon" type="image/x-icon" href="images/alien.ico">
-    
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="all">
+    <meta name="description" content="Billie Pate is an illuminist. She creates technology driven visual art.">
+    <meta name="keywords" content="billie, pate, billie pate, new media, radical media, multimedia, experimental media, illuminist, art, artist, digital art, data art, app art, net art, cyber art, interactive art, public art, light art, sculptural architecture, projection mapping, 3D, video art, refraction, data visulization ">
+    <meta name="author" content="Billie Pate">
+
+    <link rel="shortcut icon" type="image/x-icon" href="images/bp.gif">
+
     <title>Billie Pate</title>
     
-    <style type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/globe.css">
+
+</head>
+
+<body>
+
+    <div id="logo">
+        <image src="images/billiepate.gif" width="200px"></image>
+    </div>
+
+    <div id="container"></div>
     
-      html {
-        height: 100%;
-      }
-      body {
-        margin: 0;
-        padding: 0;
-        background: #000000 url(images/loading.gif) center center no-repeat;
-        color: #ffffff;
-        font-family: sans-serif;
-        font-size: 13px;
-        line-height: 20px;
-        height: 100%;
-      }
-      
-    </style>
+    <div id="currentInfo">
+        <span id="year2014" class="year"></span>
+        <span id="year2015" class="year"></span>
+        <span id="year2016" class="year"></span>
+    </div>
     
-  </head>
-  
-  <body>
+    <a href="#" id="about-link" onclick="toggleExtended()">?</a>
+    
+    <div id="extendedinfo">
+        <p><b>Billie Pate</b></p>
+        <p>Billie Pate is an illuminist and radical, experimental media artist. She creates technology-driven visual art.</p>
+        <p><b>Globe</b></p>
+        <p>This globe is an interactive visualization providing the location and details of each augmented reality (AR) artwork created by Billie Pate. Each white light on the globe represents an artowrk and it's general location in the world. Details of the artwork can be found in the associated details box. Video deocumentation of each artwork will be available in the details soon, but the artworks are site-specific and are best experienced on site at each location. You can view the artworks on site with her AR Art app. You will be able to download the app in Apple's App Store soon.</p>
+        <p><b>Augmented Reality</b></p>
+        <p>Augmented reality (AR) is a live direct or indirect view of a physical, real-world environment whose elements are augmented (or supplemented) by computer-generated sensory input such as sound, video or graphics. It is related to a more general concept called mediated reality, in which a view of reality is modified by a computer. As a result, the technology functions by enhancing one’s current perception of reality. By contrast, virtual reality (VR) replaces the real world with a simulated one.</p>
+        <p><b>Please Note</b></p>
+        <p>The app will only be available to iOS devices.</p>
+    </div>
 
-  <div id="container"></div>
+    <script type="text/javascript" src="third-party/Detector.js"></script>
+    <script type="text/javascript" src="third-party/three.min.js"></script>
+    <script type="text/javascript" src="third-party/Tween.js"></script>
+    <script type="text/javascript" src="js/globe.js"></script>
+    <script type="text/javascript">
+        if (!Detector.webgl) {
+            Detector.addGetWebGLMessage();
+        } else {
 
-  <div id="currentInfo">
-    <span id="year2014" class="year"></span>
-    <span id="year2015" class="year"></span>
-    <span id="year2016" class="year"></span>
-  </div>
-  
-  <script type="text/javascript" src="third-party/Detector.js"></script>
-  <script type="text/javascript" src="third-party/three.min.js"></script>
-  <script type="text/javascript" src="third-party/Tween.js"></script>
-  <script type="text/javascript" src="js/globe.js"></script>
-  <script type="text/javascript">
+            var years = ['2014', '2015', '2016'];
+            var container = document.getElementById('container');
+            var globe = new DAT.Globe(container);
 
-    if(!Detector.webgl){
-      Detector.addGetWebGLMessage();
-    } else {
+            console.log(globe);
+            var i, tweens = [];
 
-      var years = ['2014','2015','2016'];
-      var container = document.getElementById('container');
-      var globe = new DAT.Globe(container);
+            var settime = function (globe, t) {
+                return function () {
+                    new TWEEN.Tween(globe).to({
+                        time: t / years.length
+                    }, 500).easing(TWEEN.Easing.Cubic.EaseOut).start();
+                    var y = document.getElementById('year' + years[t]);
+                    if (y.getAttribute('class') === 'year active') {
+                        return;
+                    }
+                    var yy = document.getElementsByClassName('year');
+                    for (i = 0; i < yy.length; i++) {
+                        yy[i].setAttribute('class', 'year');
+                    }
+                    y.setAttribute('class', 'year active');
+                };
+            };
 
-      console.log(globe);
-      var i, tweens = [];
-      
-      var settime = function(globe, t) {
-        return function() {
-          new TWEEN.Tween(globe).to({time: t/years.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
-          var y = document.getElementById('year'+years[t]);
-          if (y.getAttribute('class') === 'year active') {
-            return;
-          }
-          var yy = document.getElementsByClassName('year');
-          for(i=0; i<yy.length; i++) {
-            yy[i].setAttribute('class','year');
-          }
-          y.setAttribute('class', 'year active');
-        };
-      };
-      
-      for(var i = 0; i<years.length; i++) {
-        var y = document.getElementById('year'+years[i]);
-        y.addEventListener('mouseover', settime(globe,i), false);
-      }
-      
-      var xhr;
-      TWEEN.start();
-      
-      
-      xhr = new XMLHttpRequest();
-      xhr.open('GET', 'data/artworks.json', true);
-      xhr.onreadystatechange = function(e) {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            var data = JSON.parse(xhr.responseText);
-            window.data = data;
-            for (i=0;i<data.length;i++) {
-              globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
+            for (var i = 0; i < years.length; i++) {
+                var y = document.getElementById('year' + years[i]);
+                y.addEventListener('mouseover', settime(globe, i), false);
             }
-            globe.createPoints();
-            settime(globe,0)();
-            globe.animate();
-            document.body.style.backgroundImage = 'none'; // remove loading
-          }
+
+            var xhr;
+            TWEEN.start();
+
+
+            xhr = new XMLHttpRequest();
+            xhr.open('GET', 'data/artworks.json', true);
+            xhr.onreadystatechange = function (e) {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var data = JSON.parse(xhr.responseText);
+                        window.data = data;
+                        for (i = 0; i < data.length; i++) {
+                            globe.addData(data[i][1], {
+                                format: 'magnitude',
+                                name: data[i][0],
+                                animated: true
+                            });
+                        }
+                        globe.createPoints();
+                        settime(globe, 0)();
+                        globe.animate();
+                        document.body.style.backgroundImage = 'none'; // remove loading
+                    }
+                }
+            };
+            xhr.send(null);
         }
-      };
-      xhr.send(null);
-    }
+    </script>
+    <script type="text/javascript">
+        function toggleExtended(){
+            var extendedInfo = document.getElementById('extendedinfo');
+            var aboutLink = document.getElementById('about-link');
 
-  </script>
+            if( extendedInfo.style.visibility === 'visible' ){
+                extendedInfo.style.visibility = 'hidden';
+                // aboutLink.style['background-color'] = '#1d1d1d';
+            }
+            else{
+                extendedInfo.style.visibility = 'visible';
+                // aboutLink.style['background-color'] = 'rgba(255, 255, 255, .35)';
+            }
+        }
+    </script>
 
-  </body>
+</body>
 
 </html>

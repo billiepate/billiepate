@@ -12,11 +12,23 @@ handlers:
 - url: .*/js
   static_dir: js
   
+- url: .*/css
+  static_dir: css
+  
 - url: .*/images
   static_dir: images
   
 - url: .*/data
   static_dir: data
+  
+- url: .*/astral
+  static_dir: astral
+  
+- url: .*/insta
+  static_dir: insta
+  
+- url: .*/generativeART
+  static_dir: generativeART
   
 - url: /.*
   script: index.html
